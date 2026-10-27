@@ -12,6 +12,8 @@ public class VentanaClientes extends javax.swing.JFrame implements Observer {
     public VentanaClientes(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Clientes", "Registrá clientes o elegí uno de la lista para modificar sus datos");
+        Estilo.botonPrincipal(btnAgregar);
         cargarLista();
         modelo.addObserver(this);
     }

@@ -12,6 +12,8 @@ public class VentanaFuncionarios extends javax.swing.JFrame implements Observer 
     public VentanaFuncionarios(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Funcionarios", "Ordenados por año de ingreso, del más reciente al más antiguo");
+        Estilo.botonPrincipal(btnAgregar);
         cargarLista();
         modelo.addObserver(this);
     }
