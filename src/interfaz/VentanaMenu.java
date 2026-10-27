@@ -21,7 +21,6 @@ public class VentanaMenu extends javax.swing.JFrame implements Observer {
 
     // Pantalla de inicio: barra lateral con todas las opciones a la vista y, a la derecha, un resumen
     // que se actualiza solo (la ventana es Observer del sistema, igual que las demás).
-    // La barra de menús del diseñador queda arriba como atajo de teclado (Alt).
     private void armarInicio() {
         JPanel lateral = new JPanel();
         lateral.setLayout(new BoxLayout(lateral, BoxLayout.Y_AXIS));
@@ -32,22 +31,22 @@ public class VentanaMenu extends javax.swing.JFrame implements Observer {
         lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 24));
         lblNombre.setForeground(Color.WHITE);
         JLabel lblLema = new JLabel("Gestión de paquetes");
-        lblLema.setForeground(Estilo.NARANJA);
+        lblLema.setForeground(Estilo.AZUL_TEXTO);
         lateral.add(lblNombre);
         lateral.add(lblLema);
 
         agregarSeccion(lateral, "DATOS");
-        lateral.add(crearBoton("Clientes", this::opcionClientesActionPerformed));
-        lateral.add(crearBoton("Funcionarios", this::opcionFuncionariosActionPerformed));
-        lateral.add(crearBoton("Tarifas", this::opcionTarifasActionPerformed));
+        lateral.add(crearBoton("Clientes", click -> abrirClientes()));
+        lateral.add(crearBoton("Funcionarios", click -> abrirFuncionarios()));
+        lateral.add(crearBoton("Tarifas", click -> abrirTarifas()));
         agregarSeccion(lateral, "PAQUETES");
-        lateral.add(crearBoton("Ingreso", this::opcionIngresoActionPerformed));
-        lateral.add(crearBoton("Envío", this::opcionEnvioActionPerformed));
-        lateral.add(crearBoton("Recepción", this::opcionRecepcionActionPerformed));
+        lateral.add(crearBoton("Ingreso", click -> abrirIngreso()));
+        lateral.add(crearBoton("Envío", click -> abrirEnvio()));
+        lateral.add(crearBoton("Recepción", click -> abrirRecepcion()));
         agregarSeccion(lateral, "REPORTES");
-        lateral.add(crearBoton("Paquetes por estado", this::opcionPaquetesPorEstadosActionPerformed));
-        lateral.add(crearBoton("Consulta por cliente", this::opcionConsultasPorClienteActionPerformed));
-        lateral.add(crearBoton("Log de transacciones", this::opcionLogTransaccionesActionPerformed));
+        lateral.add(crearBoton("Paquetes por estado", click -> abrirPaquetesPorEstado()));
+        lateral.add(crearBoton("Consulta por cliente", click -> abrirConsultaPorCliente()));
+        lateral.add(crearBoton("Log de transacciones", click -> abrirLogTransacciones()));
 
         lblClientes = new JLabel();
         lblPendientes = new JLabel();
@@ -87,19 +86,25 @@ public class VentanaMenu extends javax.swing.JFrame implements Observer {
         contenido.add(centro, BorderLayout.CENTER);
         setContentPane(contenido);
         setTitle("Envíos - Menú principal");
-        setSize(820, 620);
+        setSize(820, 640);
         setLocationRelativeTo(null);
     }
 
+    // Título de un grupo de opciones: en naranja y separado del grupo anterior por una línea fina.
     private void agregarSeccion(JPanel lateral, String nombre) {
         JLabel lblSeccion = new JLabel(nombre);
-        lblSeccion.setFont(new Font("Segoe UI", Font.BOLD, 11));
-        lblSeccion.setForeground(Estilo.AZUL_TEXTO);
-        lblSeccion.setBorder(BorderFactory.createEmptyBorder(18, 10, 4, 0));
+        lblSeccion.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblSeccion.setForeground(Estilo.NARANJA);
+        lblSeccion.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(14, 0, 0, 0),
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(52, 78, 120)),
+                        BorderFactory.createEmptyBorder(12, 14, 6, 0))));
+        lblSeccion.setMaximumSize(new Dimension(Integer.MAX_VALUE, lblSeccion.getPreferredSize().height));   // la línea ocupa todo el ancho
         lateral.add(lblSeccion);
     }
 
-    // Botón de la barra lateral: ejecuta la misma acción que la opción de la barra de menús.
+    // Botón de la barra lateral.
     private JButton crearBoton(String texto, java.awt.event.ActionListener accion) {
         JButton boton = new JButton(texto);
         Estilo.botonLateral(boton);
@@ -155,112 +160,12 @@ public class VentanaMenu extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar = new javax.swing.JMenuBar();
-        jMenuDatos = new javax.swing.JMenu();
-        opcionClientes = new javax.swing.JMenuItem();
-        opcionFuncionarios = new javax.swing.JMenuItem();
-        opcionTarifas = new javax.swing.JMenuItem();
-        jMenuPaquetes = new javax.swing.JMenu();
-        opcionIngreso = new javax.swing.JMenuItem();
-        opcionEnvio = new javax.swing.JMenuItem();
-        opcionRecepcion = new javax.swing.JMenuItem();
-        jMenuReportes = new javax.swing.JMenu();
-        opcionPaquetesPorEstados = new javax.swing.JMenuItem();
-        opcionConsultasPorCliente = new javax.swing.JMenuItem();
-        opcionLogTransacciones = new javax.swing.JMenuItem();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-
-        jMenuDatos.setText("Datos");
-
-        opcionClientes.setText("Clientes");
-        opcionClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionClientesActionPerformed(evt);
-            }
-        });
-        jMenuDatos.add(opcionClientes);
-
-        opcionFuncionarios.setText("Funcionarios");
-        opcionFuncionarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionFuncionariosActionPerformed(evt);
-            }
-        });
-        jMenuDatos.add(opcionFuncionarios);
-
-        opcionTarifas.setText("Tarifas");
-        opcionTarifas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionTarifasActionPerformed(evt);
-            }
-        });
-        jMenuDatos.add(opcionTarifas);
-
-        jMenuBar.add(jMenuDatos);
-
-        jMenuPaquetes.setText("Paquetes");
-
-        opcionIngreso.setText("Ingreso");
-        opcionIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionIngresoActionPerformed(evt);
-            }
-        });
-        jMenuPaquetes.add(opcionIngreso);
-
-        opcionEnvio.setText("Envío");
-        opcionEnvio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionEnvioActionPerformed(evt);
-            }
-        });
-        jMenuPaquetes.add(opcionEnvio);
-
-        opcionRecepcion.setText("Recepción");
-        opcionRecepcion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionRecepcionActionPerformed(evt);
-            }
-        });
-        jMenuPaquetes.add(opcionRecepcion);
-
-        jMenuBar.add(jMenuPaquetes);
-
-        jMenuReportes.setText("Reportes");
-
-        opcionPaquetesPorEstados.setText("Paquetes por Estado");
-        opcionPaquetesPorEstados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionPaquetesPorEstadosActionPerformed(evt);
-            }
-        });
-        jMenuReportes.add(opcionPaquetesPorEstados);
-
-        opcionConsultasPorCliente.setText("Consultas por Cliente");
-        opcionConsultasPorCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionConsultasPorClienteActionPerformed(evt);
-            }
-        });
-        jMenuReportes.add(opcionConsultasPorCliente);
-
-        opcionLogTransacciones.setText("Log de Transacciones");
-        opcionLogTransacciones.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opcionLogTransaccionesActionPerformed(evt);
-            }
-        });
-        jMenuReportes.add(opcionLogTransacciones);
-
-        jMenuBar.add(jMenuReportes);
-
-        setJMenuBar(jMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -277,50 +182,50 @@ public class VentanaMenu extends javax.swing.JFrame implements Observer {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void opcionClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionClientesActionPerformed
+    private void abrirClientes() {
         interfaz.VentanaClientes vent = new interfaz.VentanaClientes(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionClientesActionPerformed
+    }
 
-    private void opcionFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionFuncionariosActionPerformed
+    private void abrirFuncionarios() {
         interfaz.VentanaFuncionarios vent = new interfaz.VentanaFuncionarios(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionFuncionariosActionPerformed
+    }
     
-    private void opcionTarifasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionTarifasActionPerformed
+    private void abrirTarifas() {
         interfaz.VentanaTarifas vent = new interfaz.VentanaTarifas(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionTarifasActionPerformed
+    }
     
-    private void opcionIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionIngresoActionPerformed
+    private void abrirIngreso() {
         interfaz.VentanaIngreso vent = new interfaz.VentanaIngreso(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionIngresoActionPerformed
+    }
     
-    private void opcionEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionEnvioActionPerformed
+    private void abrirEnvio() {
         interfaz.VentanaEnvio vent = new interfaz.VentanaEnvio(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionEnvioActionPerformed
+    }
 
-    private void opcionRecepcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionRecepcionActionPerformed
+    private void abrirRecepcion() {
         interfaz.VentanaRecepcion vent = new interfaz.VentanaRecepcion(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionRecepcionActionPerformed
+    }
     
-    private void opcionPaquetesPorEstadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionPaquetesPorEstadosActionPerformed
+    private void abrirPaquetesPorEstado() {
         interfaz.VentanaPaquetesPorEstado vent = new interfaz.VentanaPaquetesPorEstado(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionPaquetesPorEstadosActionPerformed
+    }
     
-    private void opcionConsultasPorClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionConsultasPorClienteActionPerformed
+    private void abrirConsultaPorCliente() {
         interfaz.VentanaConsultaPorCliente vent = new interfaz.VentanaConsultaPorCliente(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionConsultasPorClienteActionPerformed
+    }
 
-    private void opcionLogTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionLogTransaccionesActionPerformed
+    private void abrirLogTransacciones() {
         interfaz.VentanaLogTransacciones vent = new interfaz.VentanaLogTransacciones(modelo);
         vent.setVisible(true);
-    }//GEN-LAST:event_opcionLogTransaccionesActionPerformed
+    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
@@ -333,19 +238,6 @@ public class VentanaMenu extends javax.swing.JFrame implements Observer {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jMenuBar;
-    private javax.swing.JMenu jMenuDatos;
-    private javax.swing.JMenu jMenuPaquetes;
-    private javax.swing.JMenu jMenuReportes;
-    private javax.swing.JMenuItem opcionClientes;
-    private javax.swing.JMenuItem opcionConsultasPorCliente;
-    private javax.swing.JMenuItem opcionEnvio;
-    private javax.swing.JMenuItem opcionFuncionarios;
-    private javax.swing.JMenuItem opcionIngreso;
-    private javax.swing.JMenuItem opcionLogTransacciones;
-    private javax.swing.JMenuItem opcionPaquetesPorEstados;
-    private javax.swing.JMenuItem opcionRecepcion;
-    private javax.swing.JMenuItem opcionTarifas;
     // End of variables declaration//GEN-END:variables
     private Sistema modelo;
     private JLabel lblClientes, lblPendientes, lblEnviados, lblRecibidos;
