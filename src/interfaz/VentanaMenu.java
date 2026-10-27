@@ -1,15 +1,154 @@
 package interfaz;
 
 import dominio.*;
+import java.awt.*;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.*;
 
-public class VentanaMenu extends javax.swing.JFrame {
+public class VentanaMenu extends javax.swing.JFrame implements Observer {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaMenu.class.getName());
 
     public VentanaMenu(Sistema sis) {
         modelo = sis;
         initComponents();
+        armarInicio();
+        actualizarResumen();
+        modelo.addObserver(this);
+    }
+
+    // Pantalla de inicio: barra lateral con todas las opciones a la vista y, a la derecha, un resumen
+    // que se actualiza solo (la ventana es Observer del sistema, igual que las demás).
+    // La barra de menús del diseñador queda arriba como atajo de teclado (Alt).
+    private void armarInicio() {
+        JPanel lateral = new JPanel();
+        lateral.setLayout(new BoxLayout(lateral, BoxLayout.Y_AXIS));
+        lateral.setBackground(Estilo.AZUL_NOCHE);
+        lateral.setBorder(BorderFactory.createEmptyBorder(22, 16, 22, 16));
+
+        JLabel lblNombre = new JLabel("Envíos");
+        lblNombre.setFont(new Font("Segoe UI", Font.BOLD, 24));
+        lblNombre.setForeground(Color.WHITE);
+        JLabel lblLema = new JLabel("Gestión de paquetes");
+        lblLema.setForeground(Estilo.NARANJA);
+        lateral.add(lblNombre);
+        lateral.add(lblLema);
+
+        agregarSeccion(lateral, "DATOS");
+        lateral.add(crearBoton("Clientes", this::opcionClientesActionPerformed));
+        lateral.add(crearBoton("Funcionarios", this::opcionFuncionariosActionPerformed));
+        lateral.add(crearBoton("Tarifas", this::opcionTarifasActionPerformed));
+        agregarSeccion(lateral, "PAQUETES");
+        lateral.add(crearBoton("Ingreso", this::opcionIngresoActionPerformed));
+        lateral.add(crearBoton("Envío", this::opcionEnvioActionPerformed));
+        lateral.add(crearBoton("Recepción", this::opcionRecepcionActionPerformed));
+        agregarSeccion(lateral, "REPORTES");
+        lateral.add(crearBoton("Paquetes por estado", this::opcionPaquetesPorEstadosActionPerformed));
+        lateral.add(crearBoton("Consulta por cliente", this::opcionConsultasPorClienteActionPerformed));
+        lateral.add(crearBoton("Log de transacciones", this::opcionLogTransaccionesActionPerformed));
+
+        lblClientes = new JLabel();
+        lblPendientes = new JLabel();
+        lblEnviados = new JLabel();
+        lblRecibidos = new JLabel();
+        JPanel indicadores = new JPanel(new GridLayout(1, 4, 12, 0));
+        indicadores.setOpaque(false);
+        indicadores.add(crearIndicador("Clientes", lblClientes));
+        indicadores.add(crearIndicador("Pendientes", lblPendientes));
+        indicadores.add(crearIndicador("En viaje", lblEnviados));
+        indicadores.add(crearIndicador("Recibidos", lblRecibidos));
+
+        JLabel lblTitulo = new JLabel("Resumen");
+        lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 20));
+        lblTitulo.setForeground(Estilo.AZUL_NOCHE);
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 12, 0));
+
+        Image mapa = new ImageIcon(getClass().getResource("/mapa.jpg")).getImage().getScaledInstance(260, 270, Image.SCALE_SMOOTH);
+        JLabel lblMapa = new JLabel("Zonas de reparto", new ImageIcon(mapa), SwingConstants.CENTER);
+        lblMapa.setVerticalTextPosition(SwingConstants.BOTTOM);
+        lblMapa.setHorizontalTextPosition(SwingConstants.CENTER);
+        lblMapa.setForeground(new Color(90, 98, 112));
+
+        JPanel arriba = new JPanel(new BorderLayout());
+        arriba.setOpaque(false);
+        arriba.add(lblTitulo, BorderLayout.NORTH);
+        arriba.add(indicadores, BorderLayout.CENTER);
+
+        JPanel centro = new JPanel(new BorderLayout(0, 16));
+        centro.setBackground(Estilo.FONDO);
+        centro.setBorder(BorderFactory.createEmptyBorder(22, 24, 18, 24));
+        centro.add(arriba, BorderLayout.NORTH);
+        centro.add(lblMapa, BorderLayout.CENTER);
+
+        JPanel contenido = new JPanel(new BorderLayout());
+        contenido.add(lateral, BorderLayout.WEST);
+        contenido.add(centro, BorderLayout.CENTER);
+        setContentPane(contenido);
+        setTitle("Envíos - Menú principal");
+        setSize(820, 620);
+        setLocationRelativeTo(null);
+    }
+
+    private void agregarSeccion(JPanel lateral, String nombre) {
+        JLabel lblSeccion = new JLabel(nombre);
+        lblSeccion.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        lblSeccion.setForeground(Estilo.AZUL_TEXTO);
+        lblSeccion.setBorder(BorderFactory.createEmptyBorder(18, 10, 4, 0));
+        lateral.add(lblSeccion);
+    }
+
+    // Botón de la barra lateral: ejecuta la misma acción que la opción de la barra de menús.
+    private JButton crearBoton(String texto, java.awt.event.ActionListener accion) {
+        JButton boton = new JButton(texto);
+        Estilo.botonLateral(boton);
+        boton.addActionListener(accion);
+        return boton;
+    }
+
+    // Tarjeta blanca con un número grande y su nombre abajo.
+    private JPanel crearIndicador(String nombre, JLabel lblNumero) {
+        lblNumero.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        lblNumero.setForeground(Estilo.AZUL_NOCHE);
+        JLabel lblNombreIndicador = new JLabel(nombre);
+        lblNombreIndicador.setForeground(new Color(90, 98, 112));
+        JPanel indicador = new JPanel(new GridLayout(2, 1));
+        indicador.setBackground(Color.WHITE);
+        indicador.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(4, 0, 0, 0, Estilo.NARANJA),
+                BorderFactory.createEmptyBorder(8, 14, 10, 14)));
+        indicador.add(lblNumero);
+        indicador.add(lblNombreIndicador);
+        return indicador;
+    }
+
+    private void actualizarResumen() {
+        int pendientes = 0;
+        int enviados = 0;
+        int recibidos = 0;
+        for (Paquete p : modelo.getPaquetes()) {
+            switch (p.getEstado()) {
+                case "PENDIENTE":
+                    pendientes++;
+                    break;
+                case "ENVIADO":
+                    enviados++;
+                    break;
+                case "RECIBIDO":
+                    recibidos++;
+                    break;
+            }
+        }
+        lblClientes.setText("" + modelo.getClientes().size());
+        lblPendientes.setText("" + pendientes);
+        lblEnviados.setText("" + enviados);
+        lblRecibidos.setText("" + recibidos);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        actualizarResumen();
     }
 
     @SuppressWarnings("unchecked")
@@ -209,4 +348,5 @@ public class VentanaMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem opcionTarifas;
     // End of variables declaration//GEN-END:variables
     private Sistema modelo;
+    private JLabel lblClientes, lblPendientes, lblEnviados, lblRecibidos;
 }
