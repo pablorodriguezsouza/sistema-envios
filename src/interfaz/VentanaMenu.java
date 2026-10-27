@@ -66,7 +66,7 @@ public class VentanaMenu extends javax.swing.JFrame implements Observer {
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 12, 0));
 
         Image mapa = new ImageIcon(getClass().getResource("/mapa.jpg")).getImage().getScaledInstance(260, 270, Image.SCALE_SMOOTH);
-        JLabel lblMapa = new JLabel("Zonas de reparto", new ImageIcon(mapa), SwingConstants.CENTER);
+        JLabel lblMapa = new JLabel("Reparto en todo el país", new ImageIcon(mapa), SwingConstants.CENTER);
         lblMapa.setVerticalTextPosition(SwingConstants.BOTTOM);
         lblMapa.setHorizontalTextPosition(SwingConstants.CENTER);
         lblMapa.setForeground(new Color(90, 98, 112));
