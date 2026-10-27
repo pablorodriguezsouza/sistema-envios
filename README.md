@@ -45,7 +45,7 @@ paquetes, funcionarios que los organizan en envíos por zona y el seguimiento de
   - `dominio`: las clases del negocio (`Sistema`, `Persona`, `Cliente`, `Funcionario`, `Paquete`, `Envio`,
     `Tarifas`), sin código de interfaz.
   - `interfaz`: las ventanas, que solo usan el dominio.
-  - `obl2`: el punto de entrada.
+  - `inicio`: el punto de entrada (`Main`).
 - **Patrón Observer:** `Sistema` avisa cada cambio y las ventanas abiertas se actualizan solas (por ejemplo, un
   cliente nuevo aparece en todas las listas sin cerrar nada).
 - Archivos: lectura y escritura de `Tarifas.txt`, el log de transacciones y la serialización de los datos.
@@ -67,7 +67,7 @@ Con [Apache Ant](https://ant.apache.org/) (viene con NetBeans), desde la carpeta
 
 ```powershell
 ant jar
-java -jar dist/Obl2.jar
+java -jar dist/SistemaEnvios.jar
 ```
 
 Hay que ejecutarlo desde la carpeta del proyecto: ahí están `Tarifas.txt` y ahí se guardan `datos` y

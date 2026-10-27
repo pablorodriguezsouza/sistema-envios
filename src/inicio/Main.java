@@ -1,9 +1,9 @@
-package obl2;
+package inicio;
 
 import dominio.Sistema;
 import java.io.IOException;
 
-public class Obl2 {
+public class Main {
     public static void main(String[] args) {
         interfaz.Estilo.instalar();
         Sistema sis = new Sistema();
