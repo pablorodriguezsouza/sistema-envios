@@ -1,7 +1,6 @@
 package interfaz;
 
 import dominio.*;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Observer;
 import java.util.Observable;
@@ -11,6 +10,7 @@ public class VentanaPaquetesPorEstado extends javax.swing.JFrame implements Obse
     public VentanaPaquetesPorEstado(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Paquetes por estado", "Hacé clic en una cantidad para ver el detalle, o pasá el mouse por una zona del mapa");
         javax.swing.ToolTipManager.sharedInstance().setInitialDelay(100);
         cargarTabla();
         modelo.addObserver(this);
@@ -81,7 +81,7 @@ public class VentanaPaquetesPorEstado extends javax.swing.JFrame implements Obse
         });
         jScrollPane2.setViewportView(tblPaquetes);
 
-        lblNorte.setBackground(new java.awt.Color(0, 0, 255));
+        lblNorte.setBackground(new java.awt.Color(19, 41, 75));
         lblNorte.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblNorte.setForeground(new java.awt.Color(255, 255, 255));
         lblNorte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -96,7 +96,7 @@ public class VentanaPaquetesPorEstado extends javax.swing.JFrame implements Obse
             }
         });
 
-        lblEste.setBackground(new java.awt.Color(0, 0, 255));
+        lblEste.setBackground(new java.awt.Color(19, 41, 75));
         lblEste.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblEste.setForeground(new java.awt.Color(255, 255, 255));
         lblEste.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -111,7 +111,7 @@ public class VentanaPaquetesPorEstado extends javax.swing.JFrame implements Obse
             }
         });
 
-        lblSur.setBackground(new java.awt.Color(0, 0, 255));
+        lblSur.setBackground(new java.awt.Color(19, 41, 75));
         lblSur.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblSur.setForeground(new java.awt.Color(255, 255, 255));
         lblSur.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -126,7 +126,7 @@ public class VentanaPaquetesPorEstado extends javax.swing.JFrame implements Obse
             }
         });
 
-        lblOeste.setBackground(new java.awt.Color(0, 0, 255));
+        lblOeste.setBackground(new java.awt.Color(19, 41, 75));
         lblOeste.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblOeste.setForeground(new java.awt.Color(255, 255, 255));
         lblOeste.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -219,35 +219,35 @@ public class VentanaPaquetesPorEstado extends javax.swing.JFrame implements Obse
     }//GEN-LAST:event_tblPaquetesMouseClicked
 
     private void lblNorteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNorteMouseEntered
-        lblNorte.setBackground(Color.RED);
+        lblNorte.setBackground(Estilo.NARANJA_OSCURO);
     }//GEN-LAST:event_lblNorteMouseEntered
 
     private void lblNorteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNorteMouseExited
-        lblNorte.setBackground(Color.BLUE);
+        lblNorte.setBackground(Estilo.AZUL_NOCHE);
     }//GEN-LAST:event_lblNorteMouseExited
 
     private void lblEsteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsteMouseEntered
-        lblEste.setBackground(Color.RED);
+        lblEste.setBackground(Estilo.NARANJA_OSCURO);
     }//GEN-LAST:event_lblEsteMouseEntered
 
     private void lblEsteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEsteMouseExited
-        lblEste.setBackground(Color.BLUE);
+        lblEste.setBackground(Estilo.AZUL_NOCHE);
     }//GEN-LAST:event_lblEsteMouseExited
 
     private void lblSurMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSurMouseEntered
-        lblSur.setBackground(Color.RED);
+        lblSur.setBackground(Estilo.NARANJA_OSCURO);
     }//GEN-LAST:event_lblSurMouseEntered
 
     private void lblSurMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSurMouseExited
-        lblSur.setBackground(Color.BLUE);
+        lblSur.setBackground(Estilo.AZUL_NOCHE);
     }//GEN-LAST:event_lblSurMouseExited
 
     private void lblOesteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOesteMouseEntered
-        lblOeste.setBackground(Color.RED);
+        lblOeste.setBackground(Estilo.NARANJA_OSCURO);
     }//GEN-LAST:event_lblOesteMouseEntered
 
     private void lblOesteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOesteMouseExited
-        lblOeste.setBackground(Color.BLUE);
+        lblOeste.setBackground(Estilo.AZUL_NOCHE);
     }//GEN-LAST:event_lblOesteMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

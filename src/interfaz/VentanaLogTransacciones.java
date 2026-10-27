@@ -12,6 +12,7 @@ public class VentanaLogTransacciones extends javax.swing.JFrame implements Obser
     public VentanaLogTransacciones(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Log de transacciones", "Registro de todas las operaciones realizadas en el sistema");
         cargarLog();
         modelo.addObserver(this);
     }
