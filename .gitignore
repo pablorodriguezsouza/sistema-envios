@@ -1,0 +1,16 @@
+# Compilados de NetBeans / Ant
+build/
+dist/
+*.class
+
+# Configuración local de NetBeans (rutas de cada computadora)
+nbproject/private/
+
+# Datos guardados por el programa al cerrarse
+datos
+*.ser
+Transacciones.log
+
+# Entregables
+*.rar
+*.zip
