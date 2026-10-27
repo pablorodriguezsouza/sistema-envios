@@ -13,6 +13,8 @@ public class VentanaRecepcion extends javax.swing.JFrame implements Observer {
     public VentanaRecepcion(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Recepción de envíos", "En amarillo, los envíos sin recepción registrada; en verde, los ya recibidos");
+        Estilo.botonPrincipal(btnRegistrarRecepcion);
         colorLista();
         cargarEnvios();
         modelo.addObserver(this);
@@ -34,9 +36,9 @@ public class VentanaRecepcion extends javax.swing.JFrame implements Observer {
                 if (!isSelected) {
                     dominio.Envio envio = (dominio.Envio) value;
                     if (envio.getRegistroRecepcion()) {
-                        c.setBackground(new java.awt.Color(144, 238, 144));
+                        c.setBackground(new java.awt.Color(214, 245, 222));
                     } else {
-                        c.setBackground(new java.awt.Color(255, 255, 153));
+                        c.setBackground(new java.awt.Color(255, 240, 189));
                     }
                 }
                 return c;

@@ -11,6 +11,8 @@ public class VentanaEnvio extends javax.swing.JFrame implements Observer {
     public VentanaEnvio(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Nuevo envío", "Elegí funcionario y zona, y pasá los paquetes pendientes al envío");
+        Estilo.botonPrincipal(btnConfirmar);
         cargarListas();
         modelo.addObserver(this);
     }

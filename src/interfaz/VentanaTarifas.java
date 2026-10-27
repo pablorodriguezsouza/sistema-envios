@@ -12,6 +12,8 @@ public class VentanaTarifas extends javax.swing.JFrame implements Observer {
     public VentanaTarifas(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Tarifas", "Precio por zona y categoría de peso; se pueden ajustar todos con un porcentaje");
+        Estilo.botonPrincipal(btnActualizar);
         cargarTabla();
         modelo.addObserver(this);
     }

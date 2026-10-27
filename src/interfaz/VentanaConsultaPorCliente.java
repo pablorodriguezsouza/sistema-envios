@@ -12,6 +12,7 @@ public class VentanaConsultaPorCliente extends javax.swing.JFrame implements Obs
     public VentanaConsultaPorCliente(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Consulta por cliente", "Estado de los paquetes enviados por cada cliente");
         cargarLista();
         lblPendientes.setVisible(false);
         lblRecibidos.setVisible(false);

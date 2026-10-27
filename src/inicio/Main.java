@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
+        interfaz.Estilo.instalar();
         Sistema sis = new Sistema();
         try {
             sis.leerTarifas();

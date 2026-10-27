@@ -12,6 +12,8 @@ public class VentanaIngreso extends javax.swing.JFrame implements Observer {
     public VentanaIngreso(Sistema sis) {
         modelo = sis;
         initComponents();
+        Estilo.aplicar(this, "Ingreso de paquetes", "El precio se calcula según el departamento de destino y el peso");
+        Estilo.botonPrincipal(btnConfirmar);
         cargarListas();
         cargarTabla();
         modelo.addObserver(this);
