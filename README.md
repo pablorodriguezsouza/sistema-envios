@@ -5,7 +5,7 @@ paquetes, funcionarios que los organizan en envíos por zona y el seguimiento de
 
 > Proyecto académico de la Licenciatura en Sistemas, Universidad ORT Uruguay (2026).
 
-![Menú principal](docs/capturas/01-menu.png)
+![Menú principal](docs/capturas/01-menu-principal.png)
 
 ## Qué hace
 
