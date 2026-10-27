@@ -38,6 +38,9 @@ paquetes, funcionarios que los organizan en envíos por zona y el seguimiento de
 ## Cómo está hecho
 
 - **Java** con **Swing**. Las ventanas se armaron con el diseñador de NetBeans (cada una tiene su `.form`).
+- Interfaz con el aspecto del sistema operativo y una identidad propia (azul noche y naranja): cada ventana tiene
+  un encabezado y su acción principal destacada, y el menú principal muestra todas las opciones en una barra
+  lateral junto a un resumen que se actualiza solo (`interfaz/Estilo` y `VentanaMenu`).
 - Separación en paquetes:
   - `dominio`: las clases del negocio (`Sistema`, `Persona`, `Cliente`, `Funcionario`, `Paquete`, `Envio`,
     `Tarifas`), sin código de interfaz.
